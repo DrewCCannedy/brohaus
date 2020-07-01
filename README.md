@@ -13,6 +13,7 @@
 8. run `python manage.py runserver` to start the development server
 ## TODO
  - Add personal pages
+ - Optimizing for mobile
 ## CHANGELOG
 #### VERSION 1.1
  - Google Cloud Deployment
