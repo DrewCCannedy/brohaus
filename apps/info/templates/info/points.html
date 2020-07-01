@@ -1,0 +1,48 @@
+{% extends "info/base.html" %}
+{% block title %}
+  Gecko-Points
+{% endblock %}
+{% block content %}
+{% if auth_error %}
+  <div class="alert alert-danger" role="alert">
+    You have to login to award points, goober!!!
+  </div>
+{% endif %}
+{% if user_error %}
+  <div class="alert alert-danger" role="alert">
+    You can't award yourself points, peepee-head!!!
+  </div>
+{% endif %}
+{% if point_trackers %}
+  <div class="row p-5">
+    {% for tracker in point_trackers %}
+    <div class="col-sm pl-5">
+      <div class="card">
+        <div class="card-header">
+          {{ tracker.point_haver.username }}
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Points: {{ tracker.gecko_points }}</li>
+          <li class="list-group-item">Last Updated: {{ tracker.updated_at|date:"d/n/y" }}</li>
+          <li class="list-group-item mx-auto">
+            <form method="post">
+              {% csrf_token %}
+              <input type="hidden" name="username" value="{{ tracker.point_haver.username }}">
+              <input type="submit" value="Award Point">
+            </form>
+          </li>
+        </ul>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p>Could not retrieve points.</p>
+{% endif %}
+{% endblock %}
+{% block script %}
+<script>
+{% comment %} set this pages nav link as active {% endcomment %}
+$('#points').addClass('active');
+</script>
+{% endblock %}
